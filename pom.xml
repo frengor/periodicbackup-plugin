@@ -6,7 +6,7 @@
         <version>3.57</version>
     </parent>
 
-    <artifactId>periodicbackup</artifactId>
+    <artifactId>periodicbackup-modified</artifactId>
     <name>Periodic Backup - Modified</name>
     <version>1.9-SNAPSHOT</version>
     <packaging>hpi</packaging>
