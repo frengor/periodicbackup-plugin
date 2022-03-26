@@ -32,5 +32,5 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3.0.0
         with:
-          name: PeriodicBackup-Modified.hpi
+          name: PeriodicBackup-Modified-${{ matrix.jdk }}.hpi
           path: target/*.hpi
