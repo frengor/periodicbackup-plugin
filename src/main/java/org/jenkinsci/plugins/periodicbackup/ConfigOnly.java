@@ -120,10 +120,9 @@ public class ConfigOnly extends FileManager {
         }
 
         if (file.isDirectory()) {
-            for (File fileOfDir : file.listFiles()) {
-                if (fileOfDir != null) {
-                    addFilesRecursively(fileOfDir, filesToBackup);
-                }
+            File[] filesInFile =  Util.listFiles(file);
+            for (File fileOfFile : filesInFile) {
+                addFilesRecursively(fileOfFile, filesToBackup);
             }
         } else if (file.isFile()) {
             filesToBackup.add(file);
