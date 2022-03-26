@@ -115,13 +115,15 @@ public class ConfigOnly extends FileManager {
 
     // fren_gor - Start
     private void addFilesRecursively(File file, List<File> filesToBackup) throws PeriodicBackupException {
-        if (!file.exists()) {
+        if (file == null || !file.exists()) {
             return;
         }
 
         if (file.isDirectory()) {
             for (File fileOfDir : file.listFiles()) {
-                addFilesRecursively(fileOfDir, filesToBackup);
+                if (fileOfDir != null) {
+                    addFilesRecursively(fileOfDir, filesToBackup);
+                }
             }
         } else if (file.isFile()) {
             filesToBackup.add(file);
