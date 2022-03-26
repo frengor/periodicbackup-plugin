@@ -7,7 +7,7 @@
     </parent>
 
     <artifactId>periodicbackup</artifactId>
-    <name>Periodic Backup</name>
+    <name>Periodic Backup - Modified</name>
     <version>1.9-SNAPSHOT</version>
     <packaging>hpi</packaging>
 
@@ -39,6 +39,10 @@
             <id>oleg_nenashev</id>
             <email>o.v.nenashev@gmail.com</email>
             <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <name>fren_gor</name>
+            <email>goro@frengor.com</email>
         </developer>
     </developers>
 

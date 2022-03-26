@@ -82,6 +82,10 @@ public class ConfigOnly extends FileManager {
             File[] dirsInJobs = Util.listFiles(jobsDir, FileFilterUtils.directoryFileFilter());
             
             for (File job : dirsInJobs) {
+                // fren_gor - Start
+                addFilesRecursively(job, filesToBackup);
+
+                /* fren_gor - Comment old code
                 File jobConfig = new File(job, "config.xml");
                 if (jobConfig.exists() && jobConfig.isFile()) {
                     filesToBackup.add(jobConfig);
@@ -104,13 +108,38 @@ public class ConfigOnly extends FileManager {
                 else {
                     LOGGER.warning(jobConfig.getAbsolutePath() + " does not exist or is not a file.");
                 }
+                */
             }
         }
     }
 
+    // fren_gor - Start
+    private void addFilesRecursively(File file, List<File> filesToBackup) throws PeriodicBackupException {
+        if (!file.exists()) {
+            return;
+        }
+
+        if (file.isDirectory()) {
+            for (File fileOfDir : file.listFiles()) {
+                addFilesRecursively(fileOfDir, filesToBackup);
+            }
+        } else if (file.isFile()) {
+            filesToBackup.add(file);
+        }
+    }
+    // fren_gor - End
+
     private void addUserFiles(File rootDir, List<File> filesToBackup) throws PeriodicBackupException {
         File usersDir = new File(rootDir, "users");
         if (usersDir.exists() && usersDir.isDirectory()) {
+
+            // fren_gor - Start
+            File usersXML = new File(usersDir, "users.xml");
+            if (usersXML.exists()) {
+                filesToBackup.add(usersXML);
+            }
+            // fren_gor - End
+
             // Each user directory should have a config.xml file
             File[] dirsInUsers =  Util.listFiles(usersDir, FileFilterUtils.directoryFileFilter());
             for (File user : dirsInUsers) {
