@@ -32,6 +32,7 @@ import org.codehaus.plexus.archiver.ArchiverException;
 
 import java.io.IOException;
 import java.util.logging.Logger;
+import java.util.logging.Level;
 import hudson.scheduler.CronTab;
 
 /**
@@ -54,10 +55,10 @@ public class PeriodicBackup extends AsyncPeriodicWork {
         String cron = link.getCron();
         if(cron != null) {
             try {
-
                 CronTab cronTab = new CronTab(link.getCron());
                 long currentTime = System.currentTimeMillis();
                 if ((cronTab.ceil(currentTime).getTimeInMillis() - currentTime) == 0 || link.isBackupNow()) {
+                    LOGGER.info("Starting Backup");
                     link.setBackupNow(false);
                     BackupExecutor executor = new BackupExecutor();
                     try {
@@ -80,6 +81,15 @@ public class PeriodicBackup extends AsyncPeriodicWork {
         else {
             LOGGER.warning("Cron is not defined.");
         }
+    }
+    
+    /**
+     * No spam in log file.
+     * @return FINEST level for logging.
+     */
+    @Override
+    protected Level getNormalLoggingLevel() {
+        return Level.FINEST;
     }
 
     @Override
