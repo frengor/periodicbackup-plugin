@@ -58,6 +58,7 @@ public class PeriodicBackup extends AsyncPeriodicWork {
                 CronTab cronTab = new CronTab(link.getCron());
                 long currentTime = System.currentTimeMillis();
                 if ((cronTab.ceil(currentTime).getTimeInMillis() - currentTime) == 0 || link.isBackupNow()) {
+                    LOGGER.info("Starting Backup"); // fren_gor - Log backup start
                     link.setBackupNow(false);
                     BackupExecutor executor = new BackupExecutor();
                     try {
@@ -81,6 +82,17 @@ public class PeriodicBackup extends AsyncPeriodicWork {
             LOGGER.warning("Cron is not defined.");
         }
     }
+
+    // fren_gor - Start
+    /**
+     * No spam in log file.
+     * @return FINEST level for logging.
+     */
+    @Override
+    protected java.util.logging.Level getNormalLoggingLevel() {
+        return java.util.logging.Level.FINEST;
+    }
+    // fren_gor - End
 
     @Override
     public long getRecurrencePeriod() {

@@ -29,3 +29,8 @@ jobs:
           java-version: ${{ matrix.jdk }}
       - name: Build with Gradle
         run: mvn --batch-mode --update-snapshots verify
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: PeriodicBackup-Modified-${{ matrix.jdk }}.hpi
+          path: target/*.hpi
