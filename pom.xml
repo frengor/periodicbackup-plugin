@@ -49,24 +49,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.jenkins.plugins</groupId>
-                <artifactId>snakeyaml-api</artifactId>
-                <version>1.29.1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jenkins-ci.plugins</groupId>
-                <artifactId>jackson2-api</artifactId>
-                <version>2.12.4</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jenkins-ci.main</groupId>
-                <artifactId>jenkins-test-harness</artifactId>
-                <version>1589.vc23fca066d5c</version>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.13.2</version>
+                <groupId>io.jenkins.tools.bom</groupId>
+                <artifactId>bom-2.426.x</artifactId>
+                <version>2555.v3190a_8a_c60c6</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
 
@@ -77,6 +64,21 @@
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-archiver</artifactId>
             <version>4.6.2</version>
+            <exclusions>
+                <!-- from Jenkins core -->
+                <exclusion>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-compress</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- PLXCOMP-194: force plexus-utils for memory leak fix -->
         <dependency>
@@ -85,39 +87,29 @@
             <version>3.5.1</version>
         </dependency>
         <dependency>
-        	<groupId>org.hamcrest</groupId>
-        	<artifactId>hamcrest-all</artifactId>
-        	<version>1.3</version>
-        	<scope>test</scope>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jenkins-ci.plugins</groupId>
             <artifactId>aws-credentials</artifactId>
-            <version>1.32</version>
         </dependency>
         <dependency>
             <groupId>org.jenkins-ci.plugins.aws-java-sdk</groupId>
             <artifactId>aws-java-sdk-ec2</artifactId>
-            <version>1.12.70</version>
         </dependency>
 
         <dependency>
             <groupId>io.jenkins</groupId>
             <artifactId>configuration-as-code</artifactId>
-            <version>${configuration-as-code.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>io.jenkins.configuration-as-code</groupId>
             <artifactId>test-harness</artifactId>
-            <version>${configuration-as-code.version}</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>joda-time</groupId>
-                    <artifactId>joda-time</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 
@@ -130,11 +122,7 @@
 
     <properties>
         <!--For parent POM-->
-        <jenkins.version>2.504.3</jenkins.version>
-        <java.level>8</java.level>
-
-        <slf4jVersion>1.7.36</slf4jVersion>
-        <configuration-as-code.version>1.55.1</configuration-as-code.version>
+        <jenkins.version>2.426.3</jenkins.version>
     </properties>
 
     <build>
@@ -156,10 +144,10 @@
             </extension>
         </extensions>
         <plugins>
-          <plugin>
-            <artifactId>maven-site-plugin</artifactId>
-            <version>3.6</version>
-          </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.6</version>
+            </plugin>
         </plugins>
 
     </build>
@@ -239,5 +227,3 @@
         </pluginRepository>
     </pluginRepositories>
 </project>
-
-
